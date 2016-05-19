@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -39,6 +40,8 @@ public class FXMLDocumentController implements Initializable {
     private TableView<Person> tableView;
     @FXML
     private ListView<Person> listView;
+    @FXML
+    private Label selected;
 
     @FXML
     private void handleSubmitButton(ActionEvent event) {
@@ -50,19 +53,24 @@ public class FXMLDocumentController implements Initializable {
         tableView.getItems().add(person);
         listView.getItems().add(person);
     }
+    
+    @FXML
+    private void handlePrintButton(ActionEvent event){
+        Person selectedItem = tableView.getSelectionModel().getSelectedItem();
+        selected.setText(selectedItem.toString());
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
         TableColumn<Person, String> firsNameCol = new TableColumn<>("First Name");
-        
         firsNameCol.setCellValueFactory((param) -> param.getValue().firstNameProperty());
         TableColumn<Person, String> lastNameCol = new TableColumn<>("Last Name");
-        
         lastNameCol.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         TableColumn<Person, Integer> ageCol = new TableColumn<>("Age");
         ageCol.setCellValueFactory(new PropertyValueFactory<>("age"));
         tableView.getColumns().addAll(firsNameCol,lastNameCol,ageCol);
+        tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
 
 }
