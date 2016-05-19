@@ -46,25 +46,23 @@ public class FXMLDocumentController implements Initializable {
         String lastName = lastNameField.getText();
         int age = Integer.parseInt(ageField.getText());
         Person person = new Person(firstName, lastName, age);
-        area.appendText(age + "\n");
-        int parseInt = Integer.parseInt(area.getText().trim());
-        String text = area.getText().trim();
-        System.out.println("text = " + text + " lenght" + text.length());
-        
-//        tableView.getItems().add(person);
-//        listView.getItems().add(person);
+        area.appendText(person + "\n");
+        tableView.getItems().add(person);
+        listView.getItems().add(person);
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-//        TableColumn<Person, String> firsNameCol = new TableColumn<>("First Name");
-//        firsNameCol.setEditable(true);
-//        firsNameCol.setCellValueFactory((param) -> param.getValue().firstNameProperty());
-//        TableColumn<Person, String> lastNameCol = new TableColumn<>("Last Name");
-//        lastNameCol.setCellValueFactory(new PropertyValueFactory<>("lastName"));
-//        TableColumn<Person, Integer> ageCol = new TableColumn<>("Age");
-//        ageCol.setCellValueFactory(new PropertyValueFactory<>("age"));
-//        tableView.getColumns().addAll(firsNameCol, lastNameCol, ageCol);
+        
+        TableColumn<Person, String> firsNameCol = new TableColumn<>("First Name");
+        
+        firsNameCol.setCellValueFactory((param) -> param.getValue().firstNameProperty());
+        TableColumn<Person, String> lastNameCol = new TableColumn<>("Last Name");
+        
+        lastNameCol.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+        TableColumn<Person, Integer> ageCol = new TableColumn<>("Age");
+        ageCol.setCellValueFactory(new PropertyValueFactory<>("age"));
+        tableView.getColumns().addAll(firsNameCol,lastNameCol,ageCol);
     }
 
 }
